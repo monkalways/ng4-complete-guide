@@ -55,7 +55,9 @@ export class RecipeEditComponent implements OnInit, OnDestroy, CanDeactivateComp
   }
 
   ngOnDestroy() {
-    this.formValuesChangeSub.unsubscribe();
+    if(this.formValuesChangeSub) {
+      this.formValuesChangeSub.unsubscribe();
+    }
   }
 
   canDeactivate(): boolean {
@@ -72,21 +74,32 @@ export class RecipeEditComponent implements OnInit, OnDestroy, CanDeactivateComp
     let recipeIngredients = new FormArray([]);
 
     if(this.editMode) {
-      const recipe = this.recipeService.getRecipe(this.id);
-      recipeName = recipe.name;
-      recipeImagePath = recipe.imagePath;
-      recipeDescription = recipe.description;
 
-      recipe.ingredients.forEach(ingredient => {
-        recipeIngredients.push(new FormGroup({
-          'name': new FormControl(ingredient.name, Validators.required),
-          'amount': new FormControl(ingredient.amount, [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)])
-        }));
+      this.recipeService.getRecipe(this.id).subscribe(recipe => {
+        recipeName = recipe.name;
+        recipeImagePath = recipe.imagePath;
+        recipeDescription = recipe.description;
+
+        recipe.ingredients.forEach(ingredient => {
+          recipeIngredients.push(new FormGroup({
+            'name': new FormControl(ingredient.name, Validators.required),
+            'amount': new FormControl(ingredient.amount, [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)])
+          }));
+        });
+
+        this.recipeForm = new FormGroup({
+          '_id': new FormControl(this.id),
+          'name': new FormControl(recipeName, Validators.required),
+          'imagePath': new FormControl(recipeImagePath, Validators.required),
+          'description': new FormControl(recipeDescription, Validators.required),
+          'ingredients': recipeIngredients
+        });
+
       });
     }
 
     this.recipeForm = new FormGroup({
-      'id': new FormControl(this.id),
+      '_id': new FormControl(this.id),
       'name': new FormControl(recipeName, Validators.required),
       'imagePath': new FormControl(recipeImagePath, Validators.required),
       'description': new FormControl(recipeDescription, Validators.required),
