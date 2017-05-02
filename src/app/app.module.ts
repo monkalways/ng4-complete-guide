@@ -17,17 +17,18 @@ import { ShoppingListService } from './shopping-list/shopping-list.service';
 import { CanDeactivateGuard } from './recipes/recipe-edit/can-deactivate.guard';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth.guard';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
     HttpModule,
     AppRoutingModule,
-    RecipesModule,
     SharedModule,
     ShoppingListModule,
     AuthModule

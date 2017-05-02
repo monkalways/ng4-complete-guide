@@ -8,7 +8,7 @@ import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
 import { CanDeactivateGuard } from './recipe-edit/can-deactivate.guard';
 
 const recipeRoutes: Routes = [
-  { path: 'recipes', component: RecipesComponent, children: [
+  { path: '', component: RecipesComponent, children: [
       { path: 'new', component: RecipeEditComponent, canActivate: [AuthGuard] },
       { path: ':id', component: RecipeDetailComponent },
       { path: ':id/edit', component: RecipeEditComponent, canActivate: [AuthGuard], canDeactivate: [CanDeactivateGuard] },

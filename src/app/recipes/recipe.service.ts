@@ -14,7 +14,7 @@ const headers = new Headers({
 
 @Injectable()
 export class RecipeService {
-
+  
   private recipesUrl: string = 'https://api.mongolab.com/api/1/databases/angular2byexample/collections/recipes?apiKey=-kKIAe6FBwUT66ynjF_eLbueDCbLJB7Z';
 
   recipesChanged: Subject<Recipe> = new Subject<Recipe>();
