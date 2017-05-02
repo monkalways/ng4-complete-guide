@@ -6,16 +6,21 @@ import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.com
 import { DefaultRecipeDetailComponent } from './recipes/default-recipe-detail/default-recipe-detail.component';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import { CanDeactivateGuard } from './recipes/recipe-edit/can-deactivate.guard';
+import { SignupComponent } from './auth/signup/signup.component';
+import { SigninComponent } from './auth/signin/signin.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   { path: 'recipes', component: RecipesComponent, children: [
       { path: '', pathMatch: 'full', component: DefaultRecipeDetailComponent },
-      { path: 'new', component: RecipeEditComponent },
+      { path: 'new', component: RecipeEditComponent, canActivate: [AuthGuard] },
       { path: ':id', component: RecipeDetailComponent },
-      { path: ':id/edit', component: RecipeEditComponent, canDeactivate: [CanDeactivateGuard] },
+      { path: ':id/edit', component: RecipeEditComponent, canActivate: [AuthGuard], canDeactivate: [CanDeactivateGuard] },
   ]},
   { path: 'shoppinglist', component: ShoppingListComponent },
-  { path: '', pathMatch: 'full', redirectTo: '/recipes' }
+  { path: 'signup', component: SignupComponent },
+  { path: 'signin', component: SigninComponent },
+  { path: '', pathMatch: 'full', redirectTo: '/recipes' },
 ];
 
 @NgModule({
