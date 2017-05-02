@@ -10,26 +10,23 @@ import { AuthModule } from './auth/auth.module';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
 
 import { RecipeService } from './recipes/recipe.service';
 import { ShoppingListService } from './shopping-list/shopping-list.service';
 import { CanDeactivateGuard } from './recipes/recipe-edit/can-deactivate.guard';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth.guard';
-import { HomeComponent } from './home/home.component';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HeaderComponent,
-    HomeComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
     AppRoutingModule,
-    SharedModule,
+    CoreModule,
     ShoppingListModule,
     AuthModule
   ],
